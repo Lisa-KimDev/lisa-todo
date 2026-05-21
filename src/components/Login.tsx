@@ -30,37 +30,37 @@ export default function Login() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-lisa-black px-4 py-10 text-lisa-white">
-      <section className="w-full max-w-md rounded-lg border border-white/10 bg-white/[0.03] p-6 shadow-glow sm:p-8">
+    <main className="flex min-h-screen items-center justify-center bg-white dark:bg-lisa-black px-4 py-10 text-lisa-black dark:text-lisa-white transition-colors">
+      <section className="w-full max-w-md rounded-lg border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] p-6 shadow-glow sm:p-8">
         <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-lisa-yellow">
           LISA TODO
         </p>
         <h1 className="text-3xl font-black">Sign in</h1>
-        <p className="mt-2 text-sm leading-6 text-white/60">
+        <p className="mt-2 text-sm leading-6 text-black/60 dark:text-white/60">
           Enter your email and password to access your tasks.
         </p>
 
         <form className="mt-8 flex flex-col gap-4" onSubmit={handleSubmit}>
-          <label className="flex flex-col gap-2 text-sm font-semibold text-white/80">
+          <label className="flex flex-col gap-2 text-sm font-semibold text-black/80 dark:text-white/80">
             Email
             <input
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="you@example.com"
-              className="rounded-md border border-white/15 bg-black px-4 py-3 text-base text-lisa-white outline-none transition placeholder:text-white/35 focus:border-lisa-yellow focus:ring-2 focus:ring-lisa-yellow/30"
+              className="rounded-md border border-black/15 dark:border-white/15 bg-gray-100 dark:bg-black px-4 py-3 text-base text-lisa-black dark:text-lisa-white outline-none transition placeholder:text-black/35 dark:placeholder:text-white/35 focus:border-lisa-yellow focus:ring-2 focus:ring-lisa-yellow/30"
               autoComplete="email"
             />
           </label>
 
-          <label className="flex flex-col gap-2 text-sm font-semibold text-white/80">
+          <label className="flex flex-col gap-2 text-sm font-semibold text-black/80 dark:text-white/80">
             Password
             <input
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder="••••••••"
-              className="rounded-md border border-white/15 bg-black px-4 py-3 text-base text-lisa-white outline-none transition placeholder:text-white/35 focus:border-lisa-yellow focus:ring-2 focus:ring-lisa-yellow/30"
+              className="rounded-md border border-black/15 dark:border-white/15 bg-gray-100 dark:bg-black px-4 py-3 text-base text-lisa-black dark:text-lisa-white outline-none transition placeholder:text-black/35 dark:placeholder:text-white/35 focus:border-lisa-yellow focus:ring-2 focus:ring-lisa-yellow/30"
               autoComplete="current-password"
             />
           </label>
@@ -68,14 +68,14 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="rounded-md bg-lisa-yellow px-4 py-3 font-black text-lisa-black transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-md bg-lisa-yellow px-4 py-3 font-black text-lisa-black transition hover:bg-lisa-yellow/80 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
 
         {error ? (
-          <p className="mt-5 rounded-md border border-red-400/30 bg-red-400/10 px-4 py-3 text-sm text-red-200">
+          <p className="mt-5 rounded-md border border-red-400/30 bg-red-400/10 px-4 py-3 text-sm text-red-600 dark:text-red-200">
             {error}
           </p>
         ) : null}
