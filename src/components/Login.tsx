@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabase';
 
 export default function Login() {
   const [email, setEmail] = useState('');
-  const [sent, setSent] = useState(false);
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -12,26 +12,21 @@ export default function Login() {
     setError('');
 
     const trimmedEmail = email.trim();
-    if (!trimmedEmail) {
-      setError('Enter your email address.');
+    if (!trimmedEmail || !password) {
+      setError('Enter your email and password.');
       return;
     }
 
     setLoading(true);
-    const { error: signInError } = await supabase.auth.signInWithOtp({
+    const { error: signInError } = await supabase.auth.signInWithPassword({
       email: trimmedEmail,
-      options: {
-        emailRedirectTo: window.location.origin,
-      },
+      password,
     });
     setLoading(false);
 
     if (signInError) {
       setError(signInError.message);
-      return;
     }
-
-    setSent(true);
   }
 
   return (
@@ -40,9 +35,9 @@ export default function Login() {
         <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-lisa-yellow">
           LISA TODO
         </p>
-        <h1 className="text-3xl font-black">Sign in with email</h1>
+        <h1 className="text-3xl font-black">Sign in</h1>
         <p className="mt-2 text-sm leading-6 text-white/60">
-          Enter your email and Supabase will send a passwordless magic link.
+          Enter your email and password to access your tasks.
         </p>
 
         <form className="mt-8 flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -58,20 +53,26 @@ export default function Login() {
             />
           </label>
 
+          <label className="flex flex-col gap-2 text-sm font-semibold text-white/80">
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="••••••••"
+              className="rounded-md border border-white/15 bg-black px-4 py-3 text-base text-lisa-white outline-none transition placeholder:text-white/35 focus:border-lisa-yellow focus:ring-2 focus:ring-lisa-yellow/30"
+              autoComplete="current-password"
+            />
+          </label>
+
           <button
             type="submit"
             disabled={loading}
             className="rounded-md bg-lisa-yellow px-4 py-3 font-black text-lisa-black transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {loading ? 'Sending...' : 'Send Magic Link'}
+            {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
-
-        {sent ? (
-          <p className="mt-5 rounded-md border border-lisa-yellow/30 bg-lisa-yellow/10 px-4 py-3 text-sm font-semibold text-lisa-yellow">
-            Check your email for the magic link.
-          </p>
-        ) : null}
 
         {error ? (
           <p className="mt-5 rounded-md border border-red-400/30 bg-red-400/10 px-4 py-3 text-sm text-red-200">
