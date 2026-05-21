@@ -149,6 +149,14 @@ export default function TodoItem({
           <div className="flex shrink-0 items-center gap-2">
             <button
               type="button"
+              onClick={() => { navigator.clipboard.writeText(todo.title); }}
+              aria-label="Copy task"
+              className="rounded-md border border-black/10 dark:border-white/10 p-2 text-black/50 dark:text-white/60 transition hover:border-lisa-yellow hover:text-lisa-yellow focus:outline-none focus:ring-2 focus:ring-lisa-yellow"
+            >
+              <span aria-hidden="true">📋</span>
+            </button>
+            <button
+              type="button"
               onClick={() => {
                 setDraftTitle(todo.title);
                 setDraftCategory(todo.category);
